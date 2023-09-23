@@ -2,9 +2,11 @@ package handlers
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/kaiquecaires/rinha-backend-go/models"
 	"github.com/kaiquecaires/rinha-backend-go/utils"
@@ -27,18 +29,21 @@ func (ch CreateHandler) Create(c *gin.Context) {
 		return
 	}
 
-	var InsertedId string
+	id := uuid.New()
+	InsertedId := id.String()
 
-	err := ch.DbPool.QueryRow(
+	_, err := ch.DbPool.Exec(
 		context.Background(),
-		"INSERT INTO pessoas (apelido, nome, nascimento, stack) VALUES ($1, $2, $3, $4) RETURNING id",
+		"INSERT INTO pessoas (id, apelido, nome, nascimento, stack) VALUES ($1, $2, $3, $4, $5)",
+		InsertedId,
 		data.Apelido,
 		data.Nome,
 		data.Nascimento,
 		data.Stack,
-	).Scan(&InsertedId)
+	)
 
 	if err != nil {
+		fmt.Print(err)
 		c.JSON(http.StatusBadRequest, gin.H{})
 		return
 	}

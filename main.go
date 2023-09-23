@@ -22,6 +22,8 @@ func main() {
 		log.Fatalf("Error to create pool: %v", pool)
 	}
 
+	gin.SetMode(gin.ReleaseMode)
+
 	r := gin.Default()
 
 	r.GET("/", func(c *gin.Context) {

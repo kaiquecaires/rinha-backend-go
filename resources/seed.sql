@@ -7,7 +7,7 @@ END;
 $$ LANGUAGE plpgsql IMMUTABLE;
 
 CREATE TABLE pessoas (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  id UUID NOT NULL PRIMARY KEY,
   apelido VARCHAR(32) UNIQUE NOT NULL,
   nome VARCHAR(100) NOT NULL,
   nascimento VARCHAR(10) NOT NULL,
