@@ -62,5 +62,5 @@ func main() {
 		handler.Count(ctx)
 	})
 
-	r.Run(os.Getenv("APP_PORT"))
+	r.Run("0.0.0.0:" + os.Getenv("APP_PORT"))
 }
