@@ -39,7 +39,7 @@ func (ch CreateHandler) Create(c *gin.Context) {
 	).Scan(&InsertedId)
 
 	if err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{})
+		c.JSON(http.StatusBadRequest, gin.H{})
 		return
 	}
 

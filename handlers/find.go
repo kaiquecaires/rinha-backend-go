@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -18,8 +17,7 @@ func (fh FindHandler) Find(c *gin.Context) {
 	t, exists := c.GetQuery("t")
 
 	if !exists || t == "" {
-		fmt.Print("não existe")
-		c.JSON(http.StatusUnprocessableEntity, gin.H{})
+		c.JSON(http.StatusBadRequest, gin.H{})
 		return
 	}
 
@@ -30,8 +28,7 @@ func (fh FindHandler) Find(c *gin.Context) {
 	)
 
 	for err != nil {
-		fmt.Print(err)
-		c.JSON(http.StatusUnprocessableEntity, gin.H{})
+		c.JSON(http.StatusBadRequest, gin.H{})
 		return
 	}
 

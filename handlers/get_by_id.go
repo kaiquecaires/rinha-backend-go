@@ -25,7 +25,7 @@ func (g GetByIdHanlder) GetById(c *gin.Context) {
 	).Scan(&pessoa.Id, &pessoa.Nome, &pessoa.Apelido, &pessoa.Nascimento, &pessoa.Stack)
 
 	if err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{})
+		c.JSON(http.StatusNotFound, gin.H{})
 		return
 	}
 
