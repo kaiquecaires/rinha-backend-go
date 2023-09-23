@@ -12,6 +12,11 @@ services:
       - "5432:5432"
     volumes:
       - ./resources/seed.sql:/docker-entrypoint-initdb.d/init.sql
+    deploy:
+      resources:
+        limits:
+          cpus: '0.75'
+          memory: '1.5GB'
 
   app1: &app
     hostname: app1
@@ -23,6 +28,11 @@ services:
       - POSTGRES_HOST=db
     depends_on:
       - db
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: '0.5GB'
 
   app2:
     <<: *app
@@ -37,4 +47,4 @@ services:
       - app1
       - app2
     ports:
-      - "${APP_PORT}:8080"
+      - "9999:9999"
